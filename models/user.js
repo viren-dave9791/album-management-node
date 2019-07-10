@@ -13,16 +13,13 @@ module.exports = function(sequelize, Sequelize) {
         city: Sequelize.STRING,
         state_id: Sequelize.INTEGER,        
         country_id: Sequelize.INTEGER,
-        is_deleted: Sequelize.BOOLEAN,
-        image: {
-            type: Sequelize.STRING(255)
-        }
+        is_deleted: Sequelize.BOOLEAN       
     },{
         timestamps: true
     });
 	UserSchema.associate = function (models) {
         UserSchema.belongsTo(models.Country, {
-                as: 'contries',
+                as: 'countries',
                 foreignKey: {
                     name: 'country_id',
                     allowNull: true
