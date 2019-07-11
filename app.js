@@ -14,6 +14,8 @@ var category = require('./routes/category');
 var user = require('./routes/user');
 var photo = require('./routes/photo');
 var album = require('./routes/album');
+var country = require('./routes/country');
+var state = require('./routes/state');
 
 //Sync Database
 models.sequelize.sync().then(function() {
@@ -50,6 +52,8 @@ app.use('/category', category);
 app.use('/user', user);
 app.use('/photo', photo);
 app.use('/album', album);
+app.use('/country', country);
+app.use('/state', state);
 // index path
 app.get('/', function(req, res){
     console.log('app listening on port: '+port);

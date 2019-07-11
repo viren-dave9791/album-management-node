@@ -3,6 +3,7 @@ var User = require('../models').User;
 var models = require('../models');
 var sequelize = require('../sequelize')();
 const fileUpload = require('express-fileupload');
+var fs = require('fs');
 
 
 var router = express.Router();
@@ -27,8 +28,6 @@ router.get('/:id', function(req, res){
     
 });
 
-
-
 router.post('/', function(req, res){
     User.create({ 
         name: req.body.name,
@@ -40,6 +39,11 @@ router.post('/', function(req, res){
         state_id: req.body.state_id,        
         country_id: req.body.country_id,        
     }).then(user => {
+        console.log(user.id);
+        var dir = './User-Albums/'+user.id;
+        if (!fs.existsSync(dir)){
+            fs.mkdirSync(dir);
+        }
         console.log(user.get({
           plain: true
         }));

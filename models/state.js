@@ -15,7 +15,7 @@ module.exports = function(sequelize, Sequelize) {
     
     StateSchema.associate = function (models) {
         StateSchema.belongsTo(models.Country, {
-                as: 'contries',
+                as: 'countries',
                 foreignKey: {
                     name: 'country_id',
                     allowNull: true

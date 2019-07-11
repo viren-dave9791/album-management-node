@@ -3,6 +3,7 @@ var Album = require('../models').Album;
 var models = require('../models');
 var sequelize = require('../sequelize')();
 const fileUpload = require('express-fileupload');
+var fs = require('fs');
 
 
 var router = express.Router();
@@ -28,15 +29,20 @@ router.get('/:id', function(req, res){
 });
 
 router.post('/', function(req, res){
-    Album.create({ 
-        name: req.body.name,
-        user_id: req.body.user_id              
-    }).then(album => {
-        console.log(album.get({
-          plain: true
-        }));
-        res.send(album);
-    });    
+    var dir = './User-Albums/'+req.body.user_id+'/'+req.body.name;
+    if (!fs.existsSync(dir)){
+        fs.mkdirSync(dir);
+        Album.create({ 
+            name: req.body.name,
+            user_id: req.body.user_id              
+        }).then(album => {    
+            console.log(album.get({
+              plain: true
+            }));
+            res.send(album);
+        });   
+    }
+     
 });
 router.put('/:id', function(req, res){
     Album.update({
